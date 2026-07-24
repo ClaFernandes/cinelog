@@ -1,0 +1,55 @@
+.footer {
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    padding: 28px 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--text-muted);
+    font-size: 12.5px;
+    background: var(--bg);
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links span {
+    cursor: pointer;
+}
+
+.footer-links span:hover {
+    color: var(--text);
+}
+
+.footer-tmdb-credit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-tmdb-badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 3px 6px;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+}
