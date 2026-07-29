@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "axios": "^1.18.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.1"
+  }
+}
