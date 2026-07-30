@@ -6,9 +6,11 @@ import './Header.css';
 interface HeaderProps {
     variant?: 'home' | 'detail';
     onAddClick?: () => void;
+    searchValue?: string;
+    onSearchChange?: (value: string) => void;
 }
 
-function Header({ variant = 'home', onAddClick }: HeaderProps) {
+function Header({ variant = 'home', onAddClick, searchValue = '', onSearchChange }: HeaderProps) {
     const navigate = useNavigate();
 
     return (
@@ -25,7 +27,12 @@ function Header({ variant = 'home', onAddClick }: HeaderProps) {
                 <>
                     <div className="header-search">
                         <Search size={16} strokeWidth={2} />
-                        <input type="text" placeholder="Buscar por título, gênero..." />
+                        <input
+                            type="text"
+                            placeholder="Buscar por título, gênero..."
+                            value={searchValue}
+                            onChange={(e) => onSearchChange?.(e.target.value)}
+                        />
                     </div>
 
                     <div className="header-actions">

@@ -30,11 +30,12 @@
     gap: 20px;
 }
 
-.footer-links span {
-    cursor: pointer;
+.footer-links a {
+    color: inherit;
+    text-decoration: none;
 }
 
-.footer-links span:hover {
+.footer-links a:hover {
     color: var(--text);
 }
 

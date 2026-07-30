@@ -45,3 +45,24 @@ export interface TmdbSearchResult {
     genre: string[];
     posterUrl: string;
 }
+
+export interface CastMember {
+    name: string;
+    character: string;
+    photoUrl?: string | undefined;
+}
+
+export interface SimilarMovie {
+    tmdbId: number;
+    title: string;
+    year: number;
+    genre: string[];
+    posterUrl: string;
+}
+
+export interface MovieDetails {
+    overview: string;
+    cast: CastMember[];
+    trailerKey?: string | undefined;
+    similar: SimilarMovie[];
+}

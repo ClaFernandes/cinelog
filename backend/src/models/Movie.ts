@@ -30,7 +30,7 @@ const movieSchema = new Schema<IMovie>({
     rating: { type: Number, min: 1, max: 5 },
     review: { type: String },
 }, {
-    timestamps: { createdAt: true, updatedAt: false },
+    timestamps: { createdAt: true, updatedAt: false }, // mongoose gera o createdAt
 });
 
 const Movie = model<IMovie>("Movie", movieSchema);

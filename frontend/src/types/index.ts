@@ -37,3 +37,24 @@ export interface TmdbSearchResult {
     genre: string[];
     posterUrl: string;
 }
+
+export interface CastMember {
+    name: string;
+    character: string;
+    photoUrl?: string;
+}
+
+export interface SimilarMovie {
+    tmdbId: number;
+    title: string;
+    year: number;
+    genre: string[];
+    posterUrl: string;
+}
+
+export interface MovieDetails {
+    overview: string;
+    cast: CastMember[];
+    trailerKey?: string;
+    similar: SimilarMovie[];
+}

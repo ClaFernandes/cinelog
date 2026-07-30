@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-// Retorna a lista inteira de filmes salvos
+// GET — retorna a lista inteira de filmes 
 router.get("/", async (req: Request, res: Response) => {
     try {
         const movies = await getAllMovies();
@@ -21,7 +21,7 @@ router.get("/", async (req: Request, res: Response) => {
     }
 });
 
-// Retorna um filme específico pelo ID do MongoDB
+// GET — retorna um filme específico pelo ID do MongoDB
 router.get("/:id", async (req: Request<{ id: string }>, res: Response) => {
     try {
         const movie = await getMovieById(req.params.id);
@@ -36,7 +36,7 @@ router.get("/:id", async (req: Request<{ id: string }>, res: Response) => {
     }
 });
 
-// Adiciona um filme novo à coleção 
+// POST — adiciona um filme novo à coleção pessoal
 router.post("/", async (req: Request<{}, {}, CreateMovieDTO>, res: Response) => {
     try {
         const savedMovie = await createMovie(req.body);
@@ -46,7 +46,7 @@ router.post("/", async (req: Request<{}, {}, CreateMovieDTO>, res: Response) => 
     }
 });
 
-// Atualiza status, nota e/ou resenha de um filme existente
+// PUT — atualiza status, nota e/ou resenha de um filme existente
 router.put("/:id", async (req: Request<{ id: string }, {}, UpdateMovieDTO>, res: Response) => {
     try {
         const updated = await updateMovie(req.params.id, req.body);
@@ -61,7 +61,7 @@ router.put("/:id", async (req: Request<{ id: string }, {}, UpdateMovieDTO>, res:
     }
 });
 
-// Apaga um filme da coleção
+// DELETE — remove um filme da coleção
 router.delete("/:id", async (req: Request<{ id: string }>, res: Response) => {
     try {
         const deleted = await deleteMovie(req.params.id);
