@@ -1,11 +1,11 @@
-import type { Movie, MovieStatus } from '../types';
+import type { MediaItem, MovieStatus } from '../types';
 import './StatusFilter.css';
 
 // 'all' representa "nenhum filtro aplicado" 
 export type StatusFilterValue = MovieStatus | 'all';
 
 interface StatusFilterProps {
-    movies: Movie[];
+    items: MediaItem[];
     selected: StatusFilterValue;
     onChange: (status: StatusFilterValue) => void;
 }
@@ -17,11 +17,10 @@ const OPTIONS: { value: StatusFilterValue; label: string }[] = [
     { value: 'watched', label: 'Assistido' },
 ];
 
-function StatusFilter({ movies, selected, onChange }: StatusFilterProps) {
-    // Conta quantos filmes existem em cada status
+function StatusFilter({ items, selected, onChange }: StatusFilterProps) {
     const countFor = (value: StatusFilterValue): number => {
-        if (value === 'all') return movies.length;
-        return movies.filter((m) => m.status === value).length;
+        if (value === 'all') return items.length;
+        return items.filter((item) => item.status === value).length;
     };
 
     return (

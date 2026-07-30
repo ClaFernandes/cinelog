@@ -24,13 +24,13 @@ export interface CreateMovieDTO {
     status: MovieStatus;
 }
 
-export interface UpdateMovieDTO {
+export interface UpdateMediaDTO {
     status?: MovieStatus;
     rating?: number;
     review?: string;
 }
 
-export interface TmdbSearchResult {
+export interface MediaSearchResult {
     tmdbId: number;
     title: string;
     year: number;
@@ -41,10 +41,10 @@ export interface TmdbSearchResult {
 export interface CastMember {
     name: string;
     character: string;
-    photoUrl?: string;
+    photoUrl?: string | undefined;
 }
 
-export interface SimilarMovie {
+export interface SimilarMedia {
     tmdbId: number;
     title: string;
     year: number;
@@ -55,6 +55,47 @@ export interface SimilarMovie {
 export interface MovieDetails {
     overview: string;
     cast: CastMember[];
-    trailerKey?: string;
-    similar: SimilarMovie[];
+    trailerKey?: string | undefined;
+    similar: SimilarMedia[];
 }
+
+export type AirStatus = 'returning' | 'ended' | 'canceled';
+
+export interface Show {
+    _id: string;
+    tmdbId: number;
+    title: string;
+    year: number;
+    genre: string[];
+    posterUrl: string;
+    trailerKey?: string;
+    status: MovieStatus;
+    rating?: number;
+    review?: string;
+    createdAt: Date;
+}
+
+export interface CreateShowDTO {
+    tmdbId: number;
+    title: string;
+    year: number;
+    genre: string[];
+    posterUrl: string;
+    trailerKey?: string;
+    status: MovieStatus;
+}
+
+export interface ShowDetails {
+    overview: string;
+    cast: CastMember[];
+    trailerKey?: string | undefined;
+    similar: SimilarMedia[];
+    numberOfSeasons: number;
+    numberOfEpisodes: number;
+    airStatus: AirStatus;
+}
+
+// Tipo unificado pra exibir filmes e séries juntos na mesma lista
+export type MediaItem =
+    | (Movie & { kind: 'movie' })
+    | (Show & { kind: 'show' });

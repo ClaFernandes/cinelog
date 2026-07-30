@@ -1,0 +1,20 @@
+.genre-filter-block h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.genre-filter-select {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: inherit;
+    padding: 9px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+}

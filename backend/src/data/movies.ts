@@ -1,5 +1,5 @@
 import Movie, { type IMovie } from "../models/Movie";
-import type { CreateMovieDTO, UpdateMovieDTO } from "../types";
+import type { CreateMovieDTO, UpdateMediaDTO } from "../types";
 
 // Retorna todos os filmes cadastrados no MongoDB
 export async function getAllMovies(): Promise<IMovie[]> {
@@ -18,7 +18,7 @@ export async function createMovie(movieData: CreateMovieDTO): Promise<IMovie> {
 }
 
 // Atualiza os dados de um filme existente e retorna a versão atualizada
-export async function updateMovie(id: string, movieData: UpdateMovieDTO): Promise<IMovie | null> {
+export async function updateMovie(id: string, movieData: UpdateMediaDTO): Promise<IMovie | null> {
     return await Movie.findByIdAndUpdate(id, movieData, { new: true });
 }
 

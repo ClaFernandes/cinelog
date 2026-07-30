@@ -1,6 +1,6 @@
 import { Router } from "express";
 import type { Request, Response } from "express";
-import type { CreateMovieDTO, UpdateMovieDTO } from "../types";
+import type { CreateMovieDTO, UpdateMediaDTO } from "../types";
 import {
     getAllMovies,
     getMovieById,
@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-// GET — retorna a lista inteira de filmes 
+// GET /api/movies — retorna a lista inteira de filmes salvos
 router.get("/", async (req: Request, res: Response) => {
     try {
         const movies = await getAllMovies();
@@ -21,7 +21,7 @@ router.get("/", async (req: Request, res: Response) => {
     }
 });
 
-// GET — retorna um filme específico pelo ID do MongoDB
+// GET /api/movies/:id — retorna um filme específico pelo ID do MongoDB
 router.get("/:id", async (req: Request<{ id: string }>, res: Response) => {
     try {
         const movie = await getMovieById(req.params.id);
@@ -36,7 +36,7 @@ router.get("/:id", async (req: Request<{ id: string }>, res: Response) => {
     }
 });
 
-// POST — adiciona um filme novo à coleção pessoal
+// POST /api/movies — adiciona um filme novo à coleção pessoal
 router.post("/", async (req: Request<{}, {}, CreateMovieDTO>, res: Response) => {
     try {
         const savedMovie = await createMovie(req.body);
@@ -46,8 +46,8 @@ router.post("/", async (req: Request<{}, {}, CreateMovieDTO>, res: Response) => 
     }
 });
 
-// PUT — atualiza status, nota e/ou resenha de um filme existente
-router.put("/:id", async (req: Request<{ id: string }, {}, UpdateMovieDTO>, res: Response) => {
+// PUT /api/movies/:id — atualiza status, nota e/ou resenha de um filme existente
+router.put("/:id", async (req: Request<{ id: string }, {}, UpdateMediaDTO>, res: Response) => {
     try {
         const updated = await updateMovie(req.params.id, req.body);
 
@@ -61,7 +61,7 @@ router.put("/:id", async (req: Request<{ id: string }, {}, UpdateMovieDTO>, res:
     }
 });
 
-// DELETE — remove um filme da coleção
+// DELETE /api/movies/:id — remove um filme da coleção
 router.delete("/:id", async (req: Request<{ id: string }>, res: Response) => {
     try {
         const deleted = await deleteMovie(req.params.id);

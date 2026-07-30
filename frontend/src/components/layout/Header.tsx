@@ -19,7 +19,7 @@ function Header({ variant = 'home', onAddClick, searchValue = '', onSearchChange
                 <img src={logoIcon} alt="" className="header-logo-icon" />
                 <div className="header-logo-text">
                     cinelog
-                    <span>seu diário de filmes</span>
+                    <span>seu diário de filmes e séries</span>
                 </div>
             </Link>
 
@@ -38,7 +38,7 @@ function Header({ variant = 'home', onAddClick, searchValue = '', onSearchChange
                     <div className="header-actions">
                         <button className="header-btn-add" onClick={onAddClick}>
                             <Plus size={16} strokeWidth={2.5} />
-                            Adicionar filme
+                            Adicionar filme ou série
                         </button>
                         <div className="header-avatar" title="Perfil do usuário">
                             <User size={18} strokeWidth={2} />

@@ -3,6 +3,31 @@
     width: 100%;
 }
 
+.tmdb-search-kind-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.tmdb-search-kind-toggle button {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-muted);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.tmdb-search-kind-toggle button.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
 .tmdb-search-input-wrapper {
     display: flex;
     align-items: center;

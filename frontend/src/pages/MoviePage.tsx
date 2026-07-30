@@ -3,9 +3,9 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Pencil } from 'lucide-react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import MovieForm from '../components/MovieForm';
+import MediaForm from '../components/MediaForm';
 import ConfirmDialog from '../components/ConfirmDialog';
-import type { Movie, MovieDetails, MovieStatus, CreateMovieDTO, SimilarMovie } from '../types';
+import type { Movie, MovieDetails, MovieStatus, CreateMovieDTO, CreateShowDTO, SimilarMedia } from '../types';
 import * as api from '../services/api';
 import './MoviePage.css';
 
@@ -28,10 +28,9 @@ function MoviePage() {
 
     const [reviewDraft, setReviewDraft] = useState('');
     const [savingReview, setSavingReview] = useState(false);
-    // controla se a seção de resenha está em modo de edição ou só leitura
     const [isEditingReview, setIsEditingReview] = useState(false);
 
-    const [movieToAdd, setMovieToAdd] = useState<SimilarMovie | null>(null);
+    const [mediaToAdd, setMediaToAdd] = useState<SimilarMedia | null>(null);
     const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
 
     useEffect(() => {
@@ -43,7 +42,6 @@ function MoviePage() {
             .then((data) => {
                 setMovie(data);
                 setReviewDraft(data.review ?? '');
-                // se ainda não existe resenha, já começa em modo de edição
                 setIsEditingReview(!data.review);
             })
             .catch((err) => {
@@ -88,20 +86,18 @@ function MoviePage() {
         }
     };
 
-    // abre o modal de confirmação em vez de remover direto
     const handleRemove = () => {
         setShowRemoveConfirm(true);
     };
 
-    // só quando o usuário confirma no modal é que a remoção acontece de fato
     const confirmRemove = async () => {
         if (!id) return;
         await api.deleteMovie(id);
         navigate('/');
     };
 
-    const handleAddSimilarMovie = async (movieData: CreateMovieDTO) => {
-        await api.createMovie(movieData);
+    const handleAddSimilarMedia = async (data: CreateMovieDTO | CreateShowDTO) => {
+        await api.createMovie(data as CreateMovieDTO);
     };
 
     if (loadingMovie) {
@@ -251,8 +247,6 @@ function MoviePage() {
                                         {savingReview ? 'Salvando...' : (movie.review ? 'Salvar' : 'Publicar resenha')}
                                     </button>
 
-                                    {/* só mostra "Cancelar" se já existia uma resenha —
-                                        se é a primeira vez, não há pra onde "cancelar" voltar */}
                                     {movie.review && (
                                         <button
                                             className="movie-page-cancel-review-btn"
@@ -308,7 +302,7 @@ function MoviePage() {
                             <div
                                 key={similar.tmdbId}
                                 className="movie-page-similar-card"
-                                onClick={() => setMovieToAdd(similar)}
+                                onClick={() => setMediaToAdd(similar)}
                             >
                                 <img
                                     src={similar.posterUrl || 'https://placehold.co/150x225?text=Sem+Capa'}
@@ -325,11 +319,11 @@ function MoviePage() {
                 </div>
             )}
 
-            {movieToAdd && (
-                <MovieForm
-                    initialMovie={movieToAdd}
-                    onSubmit={handleAddSimilarMovie}
-                    onClose={() => setMovieToAdd(null)}
+            {mediaToAdd && (
+                <MediaForm
+                    initialItem={{ result: mediaToAdd, kind: 'movie' }}
+                    onSubmit={handleAddSimilarMedia}
+                    onClose={() => setMediaToAdd(null)}
                 />
             )}
 

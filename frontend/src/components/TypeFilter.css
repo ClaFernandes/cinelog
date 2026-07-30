@@ -1,0 +1,44 @@
+.type-filter-block h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.type-filter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.type-filter-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.type-filter-item.active {
+    background: rgba(228, 87, 46, .12);
+    color: var(--text);
+    border-color: rgba(228, 87, 46, .4);
+}
+
+.type-filter-count {
+    font-size: 11px;
+    background: var(--bg-card);
+    padding: 2px 7px;
+    border-radius: 20px;
+}
+
+.type-filter-item.active .type-filter-count {
+    background: var(--primary);
+    color: #fff;
+}

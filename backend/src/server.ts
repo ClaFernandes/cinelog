@@ -5,6 +5,7 @@ import cors from 'cors';
 import { connectDB } from './db/connection';
 import tmdbRoutes from './routes/route-tmdb';
 import movieRoutes from './routes/route-movies';
+import showRoutes from './routes/route-shows';
 
 const app = express();
 
@@ -15,11 +16,10 @@ app.use(express.json());
 // Conexão com o banco de dados
 connectDB();
 
-// Regista as rotas do TMDB
+// Regista as rotas
 app.use('/api/tmdb', tmdbRoutes);
-
-// Regista as rotas CRUD de filmes na URL /api/movies
 app.use('/api/movies', movieRoutes);
+app.use('/api/shows', showRoutes);
 
 // Middleware para rotas inexistentes (404)
 app.use((req: Request, res: Response) => {

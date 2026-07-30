@@ -1,51 +1,77 @@
 import { useState, useEffect } from 'react';
 import { Search, Loader2, Plus } from 'lucide-react';
-import type { TmdbSearchResult } from '../types';
-import { searchTmdbMovies } from '../services/api';
+import type { MediaSearchResult } from '../types';
+import { searchTmdbMovies, searchTmdbShows } from '../services/api';
 import './TmdbSearch.css';
 
+type MediaKind = 'movie' | 'show';
+
 interface TmdbSearchProps {
-    onSelectMovie: (movie: TmdbSearchResult) => void;
+    onSelectMedia: (result: MediaSearchResult, kind: MediaKind) => void;
 }
 
-export default function TmdbSearch({ onSelectMovie }: TmdbSearchProps) {
+export default function TmdbSearch({ onSelectMedia }: TmdbSearchProps) {
+    const [kind, setKind] = useState<MediaKind>('movie');
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState<TmdbSearchResult[]>([]);
+    const [results, setResults] = useState<MediaSearchResult[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        // Evita chamadas com texto muito curto
         if (!query.trim() || query.length < 2) {
             setResults([]);
             return;
         }
 
-        // Aguarda 400ms após o usuário parar de digitar antes de buscar
         const timer = setTimeout(async () => {
             try {
                 setLoading(true);
                 setError(null);
-                const data = await searchTmdbMovies(query);
+                // busca no endpoint certo conforme o toggle Filme/Série
+                const data = kind === 'movie'
+                    ? await searchTmdbMovies(query)
+                    : await searchTmdbShows(query);
                 setResults(data);
             } catch (err) {
                 console.error(err);
-                setError('Erro ao buscar filmes no TMDB.');
+                setError('Erro ao buscar na TMDB.');
             } finally {
                 setLoading(false);
             }
         }, 400);
 
         return () => clearTimeout(timer);
-    }, [query]);
+    }, [query, kind]);
+
+    const handleKindChange = (newKind: MediaKind) => {
+        setKind(newKind);
+        setResults([]);
+    };
 
     return (
         <div className="tmdb-search-container">
+            <div className="tmdb-search-kind-toggle">
+                <button
+                    type="button"
+                    className={kind === 'movie' ? 'active' : ''}
+                    onClick={() => handleKindChange('movie')}
+                >
+                    Filme
+                </button>
+                <button
+                    type="button"
+                    className={kind === 'show' ? 'active' : ''}
+                    onClick={() => handleKindChange('show')}
+                >
+                    Série
+                </button>
+            </div>
+
             <div className="tmdb-search-input-wrapper">
                 <Search size={18} className="tmdb-search-icon" />
                 <input
                     type="text"
-                    placeholder="Digite o nome de um filme (ex: Batman, Matrix)..."
+                    placeholder={kind === 'movie' ? 'Digite o nome de um filme...' : 'Digite o nome de uma série...'}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                 />
@@ -56,22 +82,22 @@ export default function TmdbSearch({ onSelectMovie }: TmdbSearchProps) {
 
             {results.length > 0 && (
                 <ul className="tmdb-search-results">
-                    {results.map((movie) => (
-                        <li key={movie.tmdbId} className="tmdb-search-item">
+                    {results.map((item) => (
+                        <li key={item.tmdbId} className="tmdb-search-item">
                             <img
-                                src={movie.posterUrl || 'https://placehold.co/45x68?text=Sem+Capa'}
-                                alt={movie.title}
+                                src={item.posterUrl || 'https://placehold.co/45x68?text=Sem+Capa'}
+                                alt={item.title}
                                 className="tmdb-search-poster"
                             />
                             <div className="tmdb-search-info">
-                                <strong>{movie.title}</strong>
-                                <span>{movie.year ? movie.year : 'Ano desconhecido'}</span>
+                                <strong>{item.title}</strong>
+                                <span>{item.year ? item.year : 'Ano desconhecido'}</span>
                             </div>
                             <button
                                 type="button"
                                 className="tmdb-search-select-btn"
                                 onClick={() => {
-                                    onSelectMovie(movie);
+                                    onSelectMedia(item, kind);
                                     setQuery('');
                                     setResults([]);
                                 }}

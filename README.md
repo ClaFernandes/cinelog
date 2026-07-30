@@ -1,18 +1,17 @@
 # 🎬 Cinelog
 
-Diário pessoal de filmes: regista o que você já assistiu, está assistindo ou planeia assistir, com dados preenchidos automaticamente pela API do [TMDB](https://www.themoviedb.org/) (poster, ano, sinopse, elenco, trailer e gêneros).
-
-Projeto full-stack desenvolvido como peça de portfólio, com foco em TypeScript de ponta a ponta, integração com API externa e um design system autoral ("Sala Escura").
+Diário pessoal de filmes e séries: registre o que você já assistiu, está assistindo ou planeja assistir, com dados preenchidos automaticamente pela API do [TMDB](https://www.themoviedb.org/).
 
 ## ✨ Funcionalidades
 
-- Busca de filmes na TMDB com autocompletar (debounce, sem travar a digitação)
-- Adicionar filmes à coleção pessoal, com status inicial (`quero ver` / `assistindo` / `assistido`)
-- Página de detalhes por filme: sinopse, elenco, trailer (embed do YouTube) e filmes semelhantes
+- Busca de filmes e séries na TMDB com autocompletar
+- Adicionar títulos à coleção pessoal, com status (`quero ver` / `assistindo` / `assistido`)
+- Página de detalhes por título: sinopse, elenco, trailer e recomendações
+- Para séries: número de temporadas, episódios e situação de exibição
 - Avaliação por estrelas (1 a 5) e resenha pessoal, editáveis a qualquer momento
-- Filtro por status e busca por título/gênero na Home
+- Filtro por status e busca por título/gênero na Home (filmes e séries combinados)
 - Estante "Assistindo agora" e paginação da coleção
-- Adicionar um "filme semelhante" à coleção com um clique (atalho pré-preenchido)
+- Adicionar um título semelhante à coleção com um clique
 
 ## 🛠️ Stack
 
@@ -29,18 +28,18 @@ cinelog/
 │   └── src/
 │       ├── types/          # Interfaces e DTOs compartilhados
 │       ├── db/              # Conexão com o MongoDB Atlas
-│       ├── models/           # Schema do Mongoose (Movie)
+│       ├── models/           # Schemas do Mongoose (Movie, Show)
 │       ├── services/         # Integração com a API do TMDB
 │       ├── data/             # Camada de acesso a dados (CRUD)
-│       └── routes/           # Endpoints REST
+│       └── routes/           # Endpoints REST (movies, shows, tmdb)
 │
 └── frontend/
     └── src/
-        ├── types/            # Interfaces espelhadas do backend
+        ├── types/            # Interfaces espelhadas do backend + MediaItem unificado
         ├── services/         # Cliente HTTP (axios)
-        ├── hooks/            # useMovies — estado da coleção
-        ├── components/        # MovieCard, MovieList, MovieForm, StatusFilter, TmdbSearch...
-        └── pages/            # HomePage, MoviePage, NotFoundPage
+        ├── hooks/            # useMovies, useShows
+        ├── components/        # MediaCard, MediaList, MediaForm, StatusFilter, TmdbSearch...
+        └── pages/            # HomePage, MoviePage, ShowPage, AboutPage, NotFoundPage
 ```
 
 ## 🚀 Como rodar
@@ -48,7 +47,7 @@ cinelog/
 ### Pré-requisitos
 
 - Node.js 18+
-- Uma conta no [MongoDB Atlas](https://www.mongodb.com/atlas) (ou MongoDB local)
+- Uma conta no [MongoDB Atlas](https://www.mongodb.com/atlas)
 - Uma chave de API do [TMDB](https://www.themoviedb.org/settings/api)
 
 ### Backend
@@ -70,8 +69,6 @@ PORT=3001
 npm run dev
 ```
 
-O servidor sobe em `http://localhost:3001`.
-
 ### Frontend
 
 ```bash
@@ -79,8 +76,6 @@ cd frontend
 npm install
 npm run dev
 ```
-
-A aplicação abre em `http://localhost:5173` (padrão do Vite).
 
 ## 📡 Endpoints da API
 
@@ -91,8 +86,15 @@ A aplicação abre em `http://localhost:5173` (padrão do Vite).
 | POST | `/api/movies` | Adiciona um filme à coleção |
 | PUT | `/api/movies/:id` | Atualiza status, nota e/ou resenha |
 | DELETE | `/api/movies/:id` | Remove um filme da coleção |
+| GET | `/api/shows` | Lista todas as séries salvas |
+| GET | `/api/shows/:id` | Detalhes de uma série salva |
+| POST | `/api/shows` | Adiciona uma série à coleção |
+| PUT | `/api/shows/:id` | Atualiza status, nota e/ou resenha |
+| DELETE | `/api/shows/:id` | Remove uma série da coleção |
 | GET | `/api/tmdb/search?query=` | Busca filmes na TMDB |
-| GET | `/api/tmdb/:tmdbId/details` | Sinopse, elenco, trailer e recomendações |
+| GET | `/api/tmdb/:tmdbId/details` | Sinopse, elenco, trailer e recomendações de filme |
+| GET | `/api/tmdb/tv/search?query=` | Busca séries na TMDB |
+| GET | `/api/tmdb/tv/:tmdbId/details` | Sinopse, elenco, trailer, recomendações e temporadas/episódios de série |
 
 ## 🎨 Design system — "Sala Escura"
 
@@ -108,8 +110,8 @@ Fonte: **Poppins** (Google Fonts). Ícones: **lucide-react**.
 
 ## 📌 Roadmap futuro
 
-- Autenticação de usuários (JWT)
-- Dashboard de estatísticas pessoais (filmes/ano, gêneros mais vistos, média de notas)
+- Autenticação de usuários (login, registo, recuperar senha) + landing page pública
+- Dashboard de estatísticas pessoais
 - Perfil público para compartilhar o diário
 
 ## 🙏 Créditos

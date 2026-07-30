@@ -1,6 +1,7 @@
 import { Schema, model, Document } from "mongoose";
 import type { MovieStatus } from "../types";
 
+// A interface do documento do Mongoose espelha o "Movie" do types/index.ts
 export interface IMovie extends Document {
     tmdbId: number;
     title: string;
@@ -30,7 +31,8 @@ const movieSchema = new Schema<IMovie>({
     rating: { type: Number, min: 1, max: 5 },
     review: { type: String },
 }, {
-    timestamps: { createdAt: true, updatedAt: false }, // mongoose gera o createdAt
+    // Mongoose gera o createdAt quando o documento é salvo,
+    timestamps: { createdAt: true, updatedAt: false },
 });
 
 const Movie = model<IMovie>("Movie", movieSchema);

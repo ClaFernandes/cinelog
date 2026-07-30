@@ -1,10 +1,10 @@
-.movie-list-grid {
+.media-list-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 22px;
 }
 
-.movie-list-empty {
+.media-list-empty {
     display: flex;
     align-items: center;
     justify-content: center;

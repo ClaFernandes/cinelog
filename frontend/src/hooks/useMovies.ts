@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { Movie, CreateMovieDTO, UpdateMovieDTO } from '../types';
+import type { Movie, CreateMovieDTO, UpdateMediaDTO } from '../types';
 import * as api from '../services/api';
 
 export function useMovies() {
@@ -38,8 +38,8 @@ export function useMovies() {
         }
     };
 
-    // Função para atualizar filme
-    const editMovie = async (id: string, movieData: UpdateMovieDTO) => {
+    // Função para atualizar filme — UpdateMediaDTO é compartilhado com useShows.ts
+    const editMovie = async (id: string, movieData: UpdateMediaDTO) => {
         try {
             const updated = await api.updateMovie(id, movieData);
             setMovies((prev) => prev.map((m) => (m._id === id ? updated : m)));
@@ -68,6 +68,6 @@ export function useMovies() {
         refreshMovies: fetchMovies,
         addMovie,
         editMovie,
-        removeMovie,
+        removeMovie
     };
 }

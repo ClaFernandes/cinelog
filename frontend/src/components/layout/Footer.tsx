@@ -7,7 +7,7 @@ function Footer() {
         <footer className="footer">
             <div className="footer-left">
                 <img src={logoImg} alt="Cinelog Icon" className="footer-logo-img" />
-                <span>© 2026 Cinelog — seu diário de filmes</span>
+                <span>© 2026 Cinelog — seu diário de filmes e séries</span>
             </div>
 
             <div className="footer-links">
@@ -23,7 +23,7 @@ function Footer() {
 
             <div className="footer-tmdb-credit">
                 <span className="footer-tmdb-badge">TMDB</span>
-                <span>Dados de filmes fornecidos por The Movie Database</span>
+                <span>Dados de filmes e séries fornecidos por The Movie Database</span>
             </div>
         </footer>
     );

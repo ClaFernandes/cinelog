@@ -11,16 +11,16 @@ function AboutPage() {
                 <div className="about-hero">
                     <h1 className="about-title">Sobre o Cinelog</h1>
                     <p className="about-tagline">
-                        Um diário pessoal de filmes, com dados preenchidos automaticamente
-                        pela API do TMDB.
+                        Um diário pessoal de filmes e séries, com dados preenchidos
+                        automaticamente pela API do TMDB.
                     </p>
                 </div>
 
                 <section className="about-section">
                     <p className="about-text">
                         O Cinelog nasceu de uma ideia simples: registar o que você já assistiu,
-                        está assistindo ou planeia assistir, sem precisar digitar manualmente
-                        poster, ano, sinopse ou elenco — tudo isso vem direto da TMDB.
+                        está assistindo ou planeia assistir — filmes e séries — sem precisar
+                        digitar manualmente poster, ano, sinopse ou elenco.
                     </p>
                     <p className="about-text">
                         Este projeto foi desenvolvido como peça de portfólio, com foco em
@@ -36,7 +36,7 @@ function AboutPage() {
                             <Search size={20} className="about-feature-icon" />
                             <div>
                                 <strong>Busca inteligente</strong>
-                                <p>Encontre qualquer filme na TMDB e adicione à sua coleção em segundos.</p>
+                                <p>Encontre qualquer filme ou série na TMDB e adicione à sua coleção em segundos.</p>
                             </div>
                         </div>
                         <div className="about-feature">
@@ -57,7 +57,7 @@ function AboutPage() {
                             <Sparkles size={20} className="about-feature-icon" />
                             <div>
                                 <strong>Recomendações</strong>
-                                <p>Descubra filmes semelhantes e adicione-os com um clique.</p>
+                                <p>Descubra títulos semelhantes e adicione-os com um clique.</p>
                             </div>
                         </div>
                     </div>
