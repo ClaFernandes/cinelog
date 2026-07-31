@@ -224,6 +224,20 @@
     margin-top: 10px;
 }
 
+.movie-page-review-display-actions {
+    display: flex;
+    gap: 14px;
+}
+
+.movie-page-delete-review-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #d9534f;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
 .movie-page-save-btn {
     background: var(--primary);
     color: #fff;

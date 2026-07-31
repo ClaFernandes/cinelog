@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Pencil } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import MediaForm from '../components/MediaForm';
@@ -29,6 +29,7 @@ function MoviePage() {
     const [reviewDraft, setReviewDraft] = useState('');
     const [savingReview, setSavingReview] = useState(false);
     const [isEditingReview, setIsEditingReview] = useState(false);
+    const [showDeleteReviewConfirm, setShowDeleteReviewConfirm] = useState(false);
 
     const [mediaToAdd, setMediaToAdd] = useState<SimilarMedia | null>(null);
     const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
@@ -84,6 +85,15 @@ function MoviePage() {
         } finally {
             setSavingReview(false);
         }
+    };
+
+    const confirmDeleteReview = async () => {
+        if (!id) return;
+        const updated = await api.updateMovie(id, { review: '' });
+        setMovie(updated);
+        setReviewDraft('');
+        setIsEditingReview(true);
+        setShowDeleteReviewConfirm(false);
     };
 
     const handleRemove = () => {
@@ -263,12 +273,20 @@ function MoviePage() {
                         ) : (
                             <div className="movie-page-review-display">
                                 <p className="movie-page-review-text">{movie.review}</p>
-                                <button
-                                    className="movie-page-edit-review-btn"
-                                    onClick={() => setIsEditingReview(true)}
-                                >
-                                    <Pencil size={14} /> Editar
-                                </button>
+                                <div className="movie-page-review-display-actions">
+                                    <button
+                                        className="movie-page-edit-review-btn"
+                                        onClick={() => setIsEditingReview(true)}
+                                    >
+                                        <Pencil size={14} /> Editar
+                                    </button>
+                                    <button
+                                        className="movie-page-delete-review-btn"
+                                        onClick={() => setShowDeleteReviewConfirm(true)}
+                                    >
+                                        <Trash2 size={14} /> Excluir
+                                    </button>
+                                </div>
                             </div>
                         )}
                     </section>
@@ -334,6 +352,16 @@ function MoviePage() {
                     confirmLabel="Remover"
                     onConfirm={confirmRemove}
                     onCancel={() => setShowRemoveConfirm(false)}
+                />
+            )}
+
+            {showDeleteReviewConfirm && (
+                <ConfirmDialog
+                    title="Excluir crítica"
+                    message="Tem certeza que deseja excluir sua crítica? Essa ação não pode ser desfeita."
+                    confirmLabel="Excluir"
+                    onConfirm={confirmDeleteReview}
+                    onCancel={() => setShowDeleteReviewConfirm(false)}
                 />
             )}
 
