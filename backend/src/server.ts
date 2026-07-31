@@ -14,7 +14,9 @@ app.use(cors());
 app.use(express.json());
 
 // Conexão com o banco de dados
-connectDB();
+connectDB().catch((error) => {
+    console.error('Falha ao conectar ao MongoDB:', error);
+});
 
 // Regista as rotas
 app.use('/api/tmdb', tmdbRoutes);

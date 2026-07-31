@@ -12,6 +12,6 @@ export async function connectDB(): Promise<void> {
         console.log('Conectado ao MongoDB Atlas');
     } catch (error) {
         console.error('Erro ao conectar ao MongoDB:', error);
-        process.exit(1); // encerra se não conseguir conectar
+        throw error;
     }
 }
