@@ -12,3 +12,10 @@
     color: var(--text-muted);
     font-size: 14px;
 }
+
+@media (max-width: 480px) {
+    .media-list-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}

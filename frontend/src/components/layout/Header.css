@@ -124,3 +124,32 @@
 .header-breadcrumb-space {
     flex: 1;
 }
+
+@media (max-width: 600px) {
+    .header {
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .header-logo-icon {
+        height: 36px;
+    }
+
+    .header-logo-text {
+        font-size: 13px;
+    }
+
+    .header-logo-text span {
+        display: none;
+    }
+
+    .header-search {
+        padding: 8px 10px;
+    }
+
+    .header-avatar {
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+    }
+}

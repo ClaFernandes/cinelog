@@ -129,3 +129,9 @@
     opacity: .6;
     cursor: not-allowed;
 }
+
+@media (max-width: 380px) {
+    .media-form-selected {
+        flex-wrap: wrap;
+    }
+}

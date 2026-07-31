@@ -26,6 +26,12 @@
     display: flex;
     flex-direction: column;
     padding-top: 8px;
+    min-width: 0;
+}
+
+.movie-page-meta-row span:last-child {
+    text-align: right;
+    word-break: break-word;
 }
 
 .movie-page-title-row {
@@ -369,4 +375,101 @@
     padding: 60px 20px;
     color: var(--text-muted);
     font-size: 14px;
+}
+
+.movie-page-trailer-box iframe {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .movie-page-hero-content {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .movie-page-poster {
+        width: 140px;
+        margin: 0 auto;
+    }
+
+    .movie-page-title {
+        font-size: 22px;
+    }
+
+    .movie-page-year {
+        font-size: 13px;
+    }
+
+    .movie-page-title-row,
+    .movie-page-genre-row {
+        justify-content: center;
+    }
+
+    .movie-page-control-bar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px 16px;
+    }
+
+    .movie-page-status-pills {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .movie-page-status-pill {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+
+    .movie-page-genre-chip {
+        font-size: 11px;
+        padding: 4px 10px;
+    }
+
+    .movie-page-body-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px 40px;
+        gap: 24px;
+    }
+
+    .movie-page-body-grid>* {
+        min-width: 0;
+    }
+
+    .movie-page-cast-scroll {
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border) transparent;
+        mask-image: linear-gradient(to right, black 90%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    }
+
+    .movie-page-cast-scroll::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .movie-page-cast-scroll::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 10px;
+    }
+
+    .movie-page-cast-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .movie-page-cast-item {
+        flex: 0 0 76px;
+        scroll-snap-align: start;
+    }
+
+    .movie-page-cast-photo {
+        width: 76px;
+        height: 76px;
+    }
+
+    .movie-page-similar-section {
+        padding: 0 20px 40px;
+    }
 }
